@@ -1,3 +1,5 @@
+
+
 export enum ViewName {
   HOME = 'HOME',
   NATURAL = 'NATURAL',
@@ -5,6 +7,8 @@ export enum ViewName {
   MAP = 'MAP',
   AUXILIO = 'AUXILIO'
 }
+
+export type Language = 'es' | 'qu' | 'en';
 
 export interface Message {
   id: string;
@@ -25,6 +29,7 @@ export interface Plant {
   preparation?: string;
   contraindications?: string;
   isAiGenerated?: boolean;
+  category?: 'plant' | 'remedy'; // Nuevo campo para filtro
 }
 
 export interface EmergencyContact {
@@ -34,6 +39,20 @@ export interface EmergencyContact {
 }
 
 // Gemini Types
+export interface PlaceResult {
+  name: string;
+  rating: number;
+  reviews: number;
+  isOpen: boolean;
+  schedule: string;
+  address: string;
+  distance: string;
+  type: 'hospital' | 'pharmacy' | 'other';
+  uri?: string; // Link to google maps
+  lat?: number;
+  lng?: number;
+}
+
 export interface MapGroundingChunk {
   web?: {
     uri: string;
@@ -50,7 +69,10 @@ export interface MapGroundingChunk {
   };
 }
 
-export interface MapResult {
-  text: string;
-  chunks: MapGroundingChunk[];
+export interface SavedPlace {
+  title: string;
+  uri: string;
+  addedAt: number;
+  rating?: number;
+  address?: string;
 }
